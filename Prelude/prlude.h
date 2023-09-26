@@ -9,8 +9,8 @@
 
 #include <linux/kernel.h>  
 
-MODULE_DESCRIPTION("prelude of LKM   development" ); 
-MODULE_AUTHOR("Umar Ba ,LoopFocus jUmarB@lf.org") ; 
+MODULE_DESCRIPTION("Simple module  that discover running architecture type " ); 
+MODULE_AUTHOR("Umar Ba ,LoopFocus jUmarB@protonmail.com") ; 
 MODULE_VERSION("1.0") ; 
 MODULE_LICENSE("GPL") ;  
 
@@ -19,23 +19,32 @@ MODULE_LICENSE("GPL") ;
 
 enum { 
    exit_success ,
-#define  exit_success  ( 1U << 0 ) 
+#define  exit_success  ( 0U << 1 ) 
    exit_failure 
 #define  exit_failure  ~exit_success   
 };
 
-#define arch_i386  (1 << 5) 
-#define arch_x864  arch_i386 << 1  
+#define  _b_unit   (1 << 3)
+enum { 
+   _i386, 
+#define _i386  (1 << 5) 
+   x82_64
+#define _x64 (_i386 << 1 ) 
+}; 
 
-#define  prld_print(__fmt_mesg , ... ) \
+
+#define  prld_print(__fmt_mesg , ... ) ({\
   char  tag[PRLD_PRINT_BUFF]={0}; \
   sprintf(tag,__fmt_mesg , ##__VA_ARGS__) ; \
-  pr_info("%s:%s" ,  PRLD , tag)
+  pr_info("%s:%s" ,  PRLD , tag); \
+  })
+
+
 
 
 
 static inline int  _archtype_descovery (void) { 
-  return  sizeof(void *)*  (1 << 3) ; 
+  return  sizeof(void *)*   _b_unit ; 
 }
 
 

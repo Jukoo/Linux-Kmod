@@ -26,12 +26,12 @@ static int __init   prlude (void) {
   
   switch (current_architecture_type) 
   {
-    case (arch_i386)  : 
-      sprintf ( logbuff , "Current Architecture Type is : %i Bits" , arch_i386 ) ; 
+    case (_i386)  : 
+      sprintf ( logbuff , "Current Architecture Type is : %i Bits" , _i386 ) ; 
       break ; 
     
-    case (arch_x864) : 
-      sprintf ( logbuff , "Current Architecture Type is : %i Bits" , arch_x864 ) ;
+    case (_x64) : 
+      sprintf ( logbuff , "Current Architecture Type is : %i Bits" , _x64 ) ;
       break ; 
 
     default  : 
