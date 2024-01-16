@@ -1,9 +1,12 @@
 /** @file arch_dicovery.c 
- *  @brief   architecture  discovery 
+ *  @brief architecture  discovery 
+ *  @author  Umar Ba <jUmarB@protonmail.com> 
+ *  
+ *  !!-MISCELLANEOUS-!! 
  */ 
 
-#include <linux/module.h> 
 #include <linux/init.h> 
+#include <linux/module.h> 
 #include <linux/printk.h>
 #include <linux/kernel.h> 
 
@@ -16,20 +19,10 @@
 static int __init arch_dicovery__entry(void) 
 { 
   
-  if ( show_arch_discovery_log_mesg >0 ) {
-    switch(archbits()){
-      case   _i386 :
-        archbits_print("architecture type is  %i " ,  _i386) ; 
-        break ; 
-      case  _i64 : 
-        archbits_print("architecture type is  %i " ,  _i64) ; 
-        break ; 
-      default  : 
-        archbits_print("Unknow archbits type") ;  
-        break ;  
-    } 
+  if ( show_archbits_info > 0 ) {
+    
+    archbits_print("Architecture Type is %i", archbits()) ;   
   }else{
-    /** sudo  insmod  show_arch_discovery_log_mesg=0 */ 
     archbits_print("*************") ;  
   }
 

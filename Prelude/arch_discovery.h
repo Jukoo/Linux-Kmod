@@ -1,13 +1,15 @@
 #ifndef  arch_dicovery_h 
 #define  arch_dicovery_h 
 
-#define  ABD_TAG_SYMBOL  "ABD"
+#define  TAG "Archdiscovery"
 
 MODULE_VERSION("1.0") ; 
-MODULE_AUTHOR("Umar Ba , LoopFocus, jUmarB@protonmail.com"); 
+MODULE_AUTHOR("Umar Ba , jUmarB@protonmail.com"); 
 MODULE_LICENSE("GPL") ;
 MODULE_DESCRIPTION("architecture byte  discovery") ; 
 
+
+typedef  void *   __ptr_t   ; 
 
 enum { 
   _exit_success , 
@@ -21,16 +23,16 @@ enum {
 #define  _b_unit   ( 1 << 3 )  
 
 enum { 
-  _i386 ,  
-#define  _i386 (1<< 5) 
-  _i64 
-#define _i64   (_i386 << 1)
+  _32,  
+#define  _32 (1<< 5) 
+  _64 
+#define _64   (_32<< 1)
 } ; 
 
 #define archbits_print(_mesg , ...) ({\
     char m[MMSGBUFF]={0};\
     sprintf(m , _mesg ,  ##__VA_ARGS__) ;\
-    pr_info("%s : %s" ,  ABD_TAG_SYMBOL ,  m) ;\
+    pr_info("%s : %s" , TAG,  m) ;\
     }) 
 
 
@@ -40,7 +42,7 @@ enum {
  */ 
 static  inline int archbits (void) 
 {
-  return  sizeof ( void * )  * _b_unit ; 
+  return  sizeof(__ptr_t)  * _b_unit ; 
 }
 
 
