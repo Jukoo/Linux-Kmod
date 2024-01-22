@@ -65,7 +65,22 @@ endfunction()
 
 function(kbuild_append _m_source_file)
   file(APPEND   ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "obj-m +=${_m_source_file}.o\n")  
-endfunction() 
+endfunction()
+
+
+function(flush_kbuild)
+  if(EXISTS  ${CMAKE_CURRENT_BINARY_DIR}/Kbuild) 
+   mesginfo(STATUS  "Flushing  Kbuild file!")
+   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/Kbuild )
+  endif() 
+
+endfunction()
+function(kmod_spaning _m_spaname file_1 file_2) 
+  flush_kbuild() 
+  file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild  "obj-m +=${_m_spaname}.o\n") 
+  file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild  "${_m_spaname}-objs =${file_1}.o  ${file_2}.o\n") 
+endfunction()  
+
 
 
 ## Add more objects file in kbuild file
@@ -78,17 +93,13 @@ endfunction()
 #endfunction()
 
 
-function(kmod_spaning _m_spaname file_1 file_2)  
-   
-endfunction()  
-
 function(module_compile  _m_source_file)
 
   add_custom_command(OUTPUT  ${_m_source_file}.ko
     COMMAND  $(MAKE) -C   ${KERNEL_HEADER}/ M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR} modules
     WORKING_DIRECTORY  ${CMAKE_CURRENT_BINARY_DIR} 
-    DEPENDS ${_m_source_file} 
-    COMMENT  "[M] modules ${_m_source_file}" 
+    #DEPENDS ${_m_source_file} 
+    COMMENT  "[M] modules ${_m_source_file} Kernel Object [${_m_source_file}.ko]" 
     VERBATIM
   ) 
   ## make module_driver  

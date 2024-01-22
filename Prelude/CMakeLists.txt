@@ -3,12 +3,7 @@ include(../genericfg.cmake)
 
 project(prld) 
 
-LIST( APPEND sources arch_discovery.c  arch_discovery_param.c) 
 
-foreach(file IN  LISTS  sources ) 
-  kbuild_append(${file})  
-endforeach()
+kmod_spaning(ad arch_discovery arch_discovery_param)
 
-
-
-
+module_compile(ad)
