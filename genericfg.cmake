@@ -60,25 +60,25 @@ include_directories(${KERNEL_HEADER}/include)
 
 
 function(kbuild_write _m_source_file) 
-  file(WRITE  ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "obj-m +=${_m_source_file}.o\n")
+  file(WRITE  ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild "obj-m +=${_m_source_file}.o\n")
 endfunction() 
 
 function(kbuild_append _m_source_file)
-  file(APPEND   ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "obj-m +=${_m_source_file}.o\n")  
+  file(APPEND   ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild "obj-m +=${_m_source_file}.o\n")  
 endfunction()
 
 
 function(flush_kbuild)
-  if(EXISTS  ${CMAKE_CURRENT_BINARY_DIR}/Kbuild) 
+  if(EXISTS  ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild) 
    mesginfo(STATUS  "Flushing  Kbuild file!")
-   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/Kbuild )
+   file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild )
   endif() 
-
 endfunction()
+
 function(kmod_spaning _m_spaname file_1 file_2) 
   flush_kbuild() 
-  file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild  "obj-m +=${_m_spaname}.o\n") 
-  file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild  "${_m_spaname}-objs =${file_1}.o  ${file_2}.o\n") 
+  file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild  "obj-m +=${_m_spaname}.o\n") 
+  file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild  "${_m_spaname}-objs =${file_1}.o  ${file_2}.o\n") 
 endfunction()  
 
 
