@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION  3.25) 
-project(simple_device_driver) 
-
 include("../genericfg.cmake") 
+project(simple_device_driver) 
 
 kbuild_write(scdev_pilot) 
 

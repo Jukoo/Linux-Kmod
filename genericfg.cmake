@@ -108,21 +108,20 @@ function(module_compile  _m_source_file)
   add_custom_command(OUTPUT  ${_m_source_file}.ko
     COMMAND  $(MAKE) -C   ${KERNEL_HEADER}/ M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR} modules
     WORKING_DIRECTORY  ${CMAKE_CURRENT_BINARY_DIR} 
-    #DEPENDS ${_m_source_file} 
-    COMMENT  "[M] modules ${_m_source_file} Kernel Object [${_m_source_file}.ko]" 
+    COMMENT  "[M] ${_m_source_file} Kernel Object >>> [${_m_source_file}.ko]" 
     VERBATIM
   ) 
   ## make module_driver  
-  add_custom_target(module_driver ALL DEPENDS ${_m_source_file}.ko)
+  add_custom_target(module ALL DEPENDS ${_m_source_file}.ko)
 endfunction()
 
 
 function(restore) 
   ##  make clear 
-  add_custom_target(clear  ALL 
+  add_custom_target(klean  ALL 
     COMMAND  $(MAKE) -C   ${KERNEL_HEADER}/ M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR} clean
     WORKING_DIRECTORY  ${CMAKE_CURRENT_BINARY_DIR} 
-    COMMENT  "restoring to origine" 
+    COMMENT  "Clean First! " 
     VERBATIM
   ) 
 endfunction() 

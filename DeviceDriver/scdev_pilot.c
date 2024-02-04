@@ -14,7 +14,7 @@
 #include <linux/cdev.h>  
 #include <linux/device.h>  
 
-#include "scdev-pilot.h" 
+#include "scdev.h" 
 
 static struct file_operations fops = { 
   .owner = THIS_MODULE , 

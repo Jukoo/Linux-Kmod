@@ -1,0 +1,2 @@
+obj-m +=misc_archdiscovery.o
+misc_archdiscovery-objs =arch_discovery.o  arch_discovery_param.o
