@@ -67,13 +67,23 @@ function(kbuild_append _m_source_file)
   file(APPEND   ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild "obj-m +=${_m_source_file}.o\n")  
 endfunction()
 
+option(ALWAYS_FLUSH_KBUILD "Everytime  you rebuild your module(s) it flush automaticaly the Kbuild file" OFF) 
 
-function(flush_kbuild)
-  if(EXISTS  ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild) 
-   mesginfo(STATUS  "Flushing  Kbuild file!")
-   file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild )
+if (ALWAYS_FLUSH_KBUILD) 
+  mesginfo(STATUS "Kbuild Flush Enable!")
+endif() 
+
+function(flush_kbuild) 
+  if(ALWAYS_FLUSH_KBUILD)
+    if(EXISTS  ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild) 
+       mesginfo(STATUS  "Flushing  Kbuild file!")
+      file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild )
+    endif() 
   endif() 
 endfunction()
+
+
+
 
 function(kmod_spaning _m_spaname file_1 file_2) 
   flush_kbuild() 
@@ -81,7 +91,7 @@ function(kmod_spaning _m_spaname file_1 file_2)
   file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild  "${_m_spaname}-objs =${file_1}.o  ${file_2}.o\n") 
 endfunction()  
 
-
+ 
 
 ## Add more objects file in kbuild file
 ## FIXME : foreach loop doesn't work well 
